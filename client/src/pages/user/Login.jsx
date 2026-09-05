@@ -22,10 +22,13 @@ export default function UserLogin() {
         setMode('login');
       } else {
         await api.post('/user/login', { email: form.email, password: form.password, category: form.category });
-        navigate('/user/dashboard');
+        const s = await api.get('/session');
+        if (s.data.user) navigate('/user/dashboard');
+        else setMsg({error: 'Login succeeded but session not stored — check cookies', success:''});
       }
     } catch (err) {
-      setMsg({error: err.response?.data?.error || 'Failed', success:''});
+      console.error('user login error', err.response?.data || err.message);
+      setMsg({error: err.response?.data?.error || err.message || 'Failed', success:''});
     }
   };
 

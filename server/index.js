@@ -17,6 +17,7 @@ const __dirname = path.dirname(__filename);
 const rootDir = path.join(__dirname, '..');
 
 const app = express();
+app.set('trust proxy', 1);
 const PORT = process.env.PORT || 3000;
 const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:5173';
 const isProd = process.env.NODE_ENV === 'production';
@@ -45,8 +46,8 @@ app.use(session({
   saveUninitialized: false,
   cookie: {
     httpOnly: true,
-    secure: isProd, // Render provides HTTPS, so secure true in prod
-    sameSite: isProd ? 'none' : 'lax',
+    secure: isProd, // Render provides HTTPS, so secure true in prod (requires trust proxy)
+    sameSite: 'lax', // lax works for same-origin (React prod) and fixes "still login" loop caused by none
     maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
   },
 }));

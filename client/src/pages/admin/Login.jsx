@@ -24,10 +24,14 @@ export default function AdminLogin() {
         setMode('login');
       } else {
         await api.post('/admin/login', { email: form.email, password: form.password });
-        navigate('/admin/dashboard');
+        // verify session was actually persisted (fixes "still login" ghost)
+        const s = await api.get('/session');
+        if (s.data.admin) navigate('/admin/dashboard');
+        else setMsg({error: 'Login succeeded but session not stored — check cookies/third-party blocking', success:''});
       }
     } catch (err) {
-      setMsg({error: err.response?.data?.error || 'Failed', success:''});
+      console.error('admin login error', err.response?.data || err.message);
+      setMsg({error: err.response?.data?.error || err.message || 'Failed', success:''});
     }
   };
 
