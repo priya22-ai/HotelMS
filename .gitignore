@@ -1,0 +1,32 @@
+# Node
+node_modules/
+client/node_modules/
+client/dist/
+dist/
+.env
+.env.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Legacy PHP — keep but ignore uploads if any
+# (uncomment if needed)
+# uploads/
+# vendor/
+
+# Render
+.render/

@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: hotelms
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: 20
+      # Set these in Render Dashboard → Environment (do not commit)
+      # - key: DATABASE_URL
+      #   sync: false
+      # - key: SESSION_SECRET
+      #   generateValue: true
+      # - key: CLIENT_URL
+      #   value: https://hotelms.onrender.com
+    healthCheckPath: /api/health

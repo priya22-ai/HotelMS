@@ -1,0 +1,35 @@
+{
+  "name": "hotelms",
+  "version": "1.0.0",
+  "description": "HotelM / MealMate — React + Node + Neon Postgres (Render-ready)",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "nodemon server/index.js",
+    "dev:client": "npm run dev --workspace=client",
+    "build": "npm install --prefix client && npm run build --prefix client",
+    "start": "NODE_ENV=production node server/index.js",
+    "postinstall": "echo \"postinstall ok — remember to set DATABASE_URL\"",
+    "db:push": "psql $DATABASE_URL -f schema.pg.sql",
+    "migrate": "psql $DATABASE_URL -f schema.pg.sql"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "connect-pg-simple": "^9.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "pg": "^8.11.5"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.1.0"
+  },
+  "workspaces": [
+    "client"
+  ]
+}
